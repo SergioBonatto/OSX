@@ -635,17 +635,26 @@ let g:rust_clip_command = 'xclip -selection clipboard'
 
 
 "  ===== COLORSCHEME =====
-colorscheme gruvbox
-set term=xterm-256color
+" colorscheme gruvbox
+" set term=xterm-256color
 "set term=screen-256color
-" if has('termguicolors')
-    " set termguicolors
-" endif
+if has('termguicolors')
+    set termguicolors
+endif
 
 set background=dark
+let g:gruvbox_material_background = 'soft'
+let g:gruvbox_material_better_performance = 1
+colorscheme gruvbox-material
+" let g:lightline.colorscheme = 'gruvbox_material'
+let g:airline_theme = 'gruvbox_material'
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_disable_terminal_colors = 1
+let g:gruvbox_material_better_performance = 1
 
 " colorscheme synthwave84
-set termguicolors
+" set termguicolors
 " set background=dark
 " let g:gruvbox_italic = 1
 " let g:gruvbox_underline = 1
@@ -701,7 +710,7 @@ let g:indentLine_char = "¦"
 " let g:Hexokinase_highlighters = ['backgroundfull']
 " let g:airline#extensions#tabline#enabled = 1
 " let g:airline_theme='deus'
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'gruvbox_material'
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline_powerline_fonts = 1
 

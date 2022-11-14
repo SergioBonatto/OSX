@@ -60,6 +60,7 @@ set foldtext=NeatFoldText()
 hi Folded ctermbg=231 ctermfg=2
 hi FoldColumn ctermbg=white ctermfg=darkred
 
+set mouse=a
 set ruler
 " set colorcolumn=90
 set ttyfast
@@ -628,6 +629,7 @@ au BufRead,BufNewFile *.kind set filetype=kind
 
 au BufRead,BufNewFile *.kind2 set filetype=kind2
 au BufRead,BufNewFile *.kind2 set syntax=rust
+au BufNewFile,BufRead *.hvm set syntax=javascript
 
 " highlight default link
 
@@ -647,7 +649,7 @@ let g:gruvbox_material_background = 'soft'
 let g:gruvbox_material_better_performance = 1
 colorscheme gruvbox-material
 " let g:lightline.colorscheme = 'gruvbox_material'
-let g:airline_theme = 'gruvbox_material'
+" let g:airline_theme = 'gruvbox_material'
 let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_disable_terminal_colors = 1
@@ -710,10 +712,11 @@ let g:indentLine_char = "¦"
 " let g:Hexokinase_highlighters = ['backgroundfull']
 " let g:airline#extensions#tabline#enabled = 1
 " let g:airline_theme='deus'
+" ================== mudei aqui =====================
 let g:airline_theme = 'gruvbox_material'
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline_powerline_fonts = 1
-
+" ===================================================
 
 
 
@@ -819,10 +822,10 @@ let g:javascript_plugin_jsdoc = 1
 " Markdown preview
 let vim_markdown_preview_github=1
 let vim_markdown_preview_toggle=2
-let vim_markdown_preview_browser='Google Chrome'
+let vim_markdown_preview_browser='Firefox'
 
-
-set clipboard=unnamedplus
+set clipboard=unnamed
+" set clipboard=unnamedplus
 " set guifont=Hack\ 14
 " set guifont=Noto\ 11
 " set guifont=DroidSansMono_Nerd_Font:h11

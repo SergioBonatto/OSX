@@ -101,7 +101,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-
+source /Users/fibonatto/.iterm2_shell_integration.zsh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -127,22 +127,18 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias class="cd ~/Documentos/class/Kind/Exercises"
+# alias class="cd ~/Documentos/class/Kind/Exercises"
 alias gs="git status"
 alias cl="clear"
-alias r="ranger"
-alias byebye="sudo shutdown now"
-alias inte="sudo shutdown -r now"
-alias up="sudo pacman -Syyu && yay -Syyu"
-alias matrix="cmatrix -b -C black"
 alias meufetch="~/.scripts/meufetch.sh"
 alias media="cd /media/Arquivos/"
-alias ck="cd ~/Programação/Wikind && ls"
+alias ck="cd ~/Wikind && ls"
+alias cj="cd ~/curso-js && ls"
 alias :q="exit"
-alias musica="mpd && ncmpcpp"
 alias vi="vim"
-alias agenda="gcalcli calm"
-alias hj="gcalcli calw"
+alias beta="cd ~/Beta-reduction-animation/ && ls "
+alias class="cd ~/learning && ls"
+alias cobra="starfetch -n ophiuchus"
 
 # Codi bloco de nota para hackers
 # Usage: codi [filetype] [filename]
@@ -158,3 +154,6 @@ codi() {
     Codi $syntax" "$@"
 }
 # fim do codi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

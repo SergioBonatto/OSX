@@ -1,11 +1,7 @@
 set encoding=UTF-8
 
 execute pathogen#infect()
-
-"256 colors
-" set t_Co=256
-" set t_AB=^[[48;5;%dm
-" set t_AF=^[[38;5;%dm
+" execute pathogen#infect('pack/ignore/*')
 
 function! s:NextNonBlankLine(lnum)
     let numlines = line('$')
@@ -62,46 +58,46 @@ hi FoldColumn ctermbg=white ctermfg=darkred
 
 set mouse=a
 set ruler
-" set colorcolumn=90
+set colorcolumn=90                       " Highlight the 90th column
 set ttyfast
 set ttyscroll=3
 set lazyredraw
 set hidden
-set nowrap
 set autoread
-" set wrap nolist linebreak
-" set nosmartindent                        " TODO: remove this line if things go wrong
-set nolisp                               " stops annoying auto-indenting on .scm file
-set tabstop=2                            " a tab is four spaces
-set expandtab                            "
-set backspace=indent,eol,start           " allow backspacing over everything in insert mode
-set autoindent                           " always set autoindenting on
-set number                               " always show line numbers
-set shiftwidth=2                         " number of spaces to use for autoindenting
-set shiftround                           " use multiple of shiftwidth when indenting with '<' and '>'
-set showmatch                            " set show matching parenthesis
-set ignorecase                           " ignore case when searching
-set smartcase                            " ignore case if search pattern is all lowercase, case-sensitive otherwise
-set smarttab                             " insert tabs on the start of a line according to shiftwidth, not tabstop
-set hlsearch                             " highlight search terms
-set incsearch                            " show search matches as you type
-set history=1000                         " remember more commands and search history
-set undolevels=1000                      " use many muchos levels of undo
-set title                                " change the terminal's title
-set novisualbell                         " don't flash
-set noerrorbells                         " don't beep
+set nowrap
+set nolisp                               " Stops annoying auto-indenting on .scm file
+set tabstop=2                            " A tab is two spaces
+set expandtab
+set backspace=indent,eol,start           " Allow backspacing over everything in insert mode
+set number                               " Always show line numbers
+set shiftwidth=2                         " Number of spaces to use for autoindenting
+set shiftround                           " Use multiple of shiftwidth when indenting with '<' and '>'
+set showmatch                            " Show matching parenthesis
+set ignorecase                           " Ignore case when searching
+set smartcase                            " Ignore case if search pattern is all lowercase, case-sensitive otherwise
+set hlsearch                             " Highlight search terms
+set incsearch                            " Show search matches as you type
+set history=1000                         " Remember more commands and search history
+set undolevels=1000                      " Use many levels of undo
+set title                                " Change the terminal's title
+set novisualbell                         " Don't flash
+set noerrorbells                         " Don't beep
 set nobackup
 set noswapfile
 set nocompatible
-set viminfo='1000,f1,<500,:100,/100,h  "
-set shortmess=atql " no annoying start screen
-" set linebreak
-" set wrap linebreak
-" set showbreak=↪
-set nolist  " list disables linebreak
-" set textwidth=80
-" set wrapmargin=0
+set viminfo='1000,f1,<500,:100,/100,h
+set shortmess=atql                       " No annoying start screen
+set wrap                                 " Enable line wrapping
+set linebreak                            " Wrap long lines at a character in 'breakat'
+set textwidth=90                         " Set text width to 90 for automatic line breaking
+set wrapmargin=0
 set cryptmethod=blowfish2
+" set formatoptions+=t                     " Break lines at textwidth
+
+" The rest of your vimrc settings...
+" Ensure the format options are correctly set
+set formatoptions+=croqlt
+
 
 " CtrlP stuff
 "let g:ctrlp_match_func = {'match' : 'cpsm#CtrlPMatch' }
@@ -113,7 +109,7 @@ let g:ctrlp_by_filename = 0
 
 :nnoremap <expr> r ':!time kind %<cr>'
 " The greatest
-:nnoremap <expr> r ':!clear<cr>:w!<cr>'.(
+:nnoremap <expr> r ':!clear && date <cr>:w!<cr>'.(
     \ expand('%:p')=='/Users/v/mist/main.js' ? ':!electron . --rpc ~/Library/Ethereum/testnet/geth.ipc<cr>' :
     \ expand('%:t')=='test.js' ? ':!mocha<cr>' :
     \ &ft=='caramel'    ? ':!time mel main<cr>' :
@@ -122,11 +118,10 @@ let g:ctrlp_by_filename = 0
     \ &ft=='python'     ? ':!time python3 %<cr>' :
     \ &ft=='coc'        ? ':!time (coc type %:r; coc norm %:r)<cr>' :
     \ &ft=='scheme'     ? ':!time scheme --script %<cr>' :
-    \ &ft=='elm'        ? '<esc>:!clear<cr>:w!<cr>:!elm % -r elm-runtime.js<cr>:!osascript ~/.vim/refresh.applescript &<cr>' :
     \ &ft=='racket'     ? ':!racket %<cr>' :
     \ &ft=='haskell'    ? ':!time runghc --ghc-arg=-freverse-errors %<cr>' :
-    "\ &ft=='haskell'    ? ':!stack runghc %<cr>' :
-    \ &ft=='rust'       ? ':!time RUST_BACKTRACE=1 cargo lrun<cr>' :
+    \ &ft=='haskell'    ? ':!stack runghc %<cr>' :
+    \ &ft=='rust'       ? ':!time RUST_BACKTRACE=1 cargo run<cr>' :
     \ &ft=='go'         ? ':!time go run %<cr>' :
     \ &ft=='purescript' ? ':!pulp run <cr>' :
     \ &ft=='dvl'        ? ':!dvl run %<cr>' :
@@ -142,11 +137,19 @@ let g:ctrlp_by_filename = 0
     \ &ft=='formality'  ? ':!time fmjs %<cr>' :
     \ &ft=='formcore'   ? ':!time fmc %<cr>' :
     \ &ft=='kind'       ? ':!time kind %<cr>' :
+    \ &ft=='icvm'       ? ':!time ic %<cr>' :
+    \ &ft=='ksc'        ? ':!time kindelia-cli local eval --file %<cr>' :
+    \ &ft=='ic'         ? ':!time ic %<cr>' :
     \ &ft=='kind2'      ? ':!time kind2 check %<cr>' :
     \ &ft=='type'       ? ':!time kind2 derive %<cr>' :
     \ &ft=='kindelia'   ? ':!time kindelia run %<cr>' :
     \ &ft=='lambolt'    ? ':!time hvm % ts<cr>' :
-    \ &ft=='hvm'        ? ':!time hvm run % 2<cr>' :
+    \ &ft=='bend'       ? ':!time bend check %<cr>' :
+    \ &ft=='hvm'        ? ':!time hvm run %<cr>' :
+    \ &ft=='hvm1'       ? ':!time -l -h hvm1 run -t 1 -c -f % "(Main)"<cr>' :
+    \ &ft=='hvmc'       ? ':!time hvmc run % -s -m 32G<cr>' :
+    \ &ft=='ic'         ? ':!time ic  %<cr>' :
+    \ &ft=='hvmo2'      ? ':!time hvm-old run  %<cr>' :
     \ &ft=='sic'        ? ':!time sic -s %<cr>' :
     \ &ft=='morte'      ? ':!time echo $(cat %) \| morte<cr>' :
     \ &ft=='swift'      ? ':!time swift %<cr>' :
@@ -154,61 +157,15 @@ let g:ctrlp_by_filename = 0
     \ &ft=='idris2'     ? ':!time idris2 % -o %:r<cr>:!time ./build/exec/%:r<cr>' :
     \ &ft=='lean'       ? ':!time lean %<cr>' :
     \ &ft=='c'          ? ':!clang % -o %:r<cr>:!time ./%:r<cr>' :
-    \ &ft=='cuda'       ? ':!scp % victu:~/cuda<CR>:!ssh victu /usr/local/cuda/bin/nvcc -O3 /home/v/cuda/% -o /home/v/cuda/%:r<CR>:!ssh victu time /home/v/cuda/%:r<cr>' :
     \ &ft=='cpp'        ? ':!clang++ -std=c++11 -O3 % -o %:r<cr>:!time ./%:r<cr>' :
     \ &ft=='agda'       ? ':!agda -i src %<cr>' :
     \ &ft=='ls'         ? ':!lsc -c %<cr>:!node %:r.js<cr>' :
     \ &ft=='lispell'    ? ':!node ~/Viclib/lispedia/bin/lis.js reduce %:r<cr>' :
     \ ':!time cc %<cr>')
 
-:nnoremap <expr> R ':!clear<cr>:w!<cr>'.(
-    \ expand('%:p')=='/Users/v/mist/main.js' ? ':!electron . --rpc ~/Library/Ethereum/testnet/geth.ipc<cr>' :
-    \ expand('%:t')=='test.js' ? ':!mocha<cr>' :
-    \ &ft=='caramel'    ? ':!time mel main<cr>' :
-    \ &ft=='ocaml'      ? ':!ocamlc -o %:r %<cr>:!./%:r<cr>' :
-    \ &ft=='factor'     ? ':!~/factor/factor %<cr>' :
-    \ &ft=='python'     ? ':!time python %<cr>' :
-    \ &ft=='coc'        ? ':!time (coc type %:r; coc norm %:r)<cr>' :
-    \ &ft=='scheme'     ? ':!csc %<cr>:!time ./%:r<cr>' :
-    \ &ft=='elm'        ? '<esc>:!clear<cr>:w!<cr>:!elm % -r elm-runtime.js<cr>:!osascript ~/.vim/refresh.applescript &<cr>' :
-    \ &ft=='racket'     ? ':!racket %<cr>' :
-    "\ &ft=='haskell'    ? ':!stack run<cr>' :
-    \ &ft=='haskell'    ? ':!time ghc -O2 % -o .tmp; time ./.tmp 0; rm %:r.hi %:r.o .tmp<cr>' :
-    \ &ft=='rust'       ? ':!time cargo lrun --release<cr>' :
-    \ &ft=='go'         ? ':!time go run %<cr>' :
-    \ &ft=='purescript' ? ':!pulp run <cr>' :
-    \ &ft=='dvl'        ? ':!dvl run %<cr>' :
-    \ &ft=='lambda'     ? ':!time absal -s %<cr>' :
-    \ &ft=='javascript' ? ':!npm run build<cr>' :
-    \ &ft=='typescript' ? ':!time deno --unstable run --reload --allow-all %<cr>' :
-    "\ &ft=='typescript' ? ':!npm run build<cr>' :
-    \ &ft=='html'       ? ':!npm run build<cr>' :
-    \ &ft=='eatt'       ? ':!time eatt %:r<cr>' :
-    \ &ft=='fmfm'       ? ':!time fmjs %:r --run<cr>' :
-    \ &ft=='formality'  ? ':!time fmjs %:r --run<cr>' :
-    \ &ft=='kind'       ? ':!time kind ' . substitute(expand("%:r"),"/",".","g") . ' --run<cr>' :
-    \ &ft=='kind2'      ? ':!time kind2 eval %<cr>' :
-    \ &ft=='kindelia'   ? ':!time kindelia post % 127.0.0.1:42000<cr>' :
-    \ &ft=='lambolt'    ? ':!time lam % c<cr>' :
-    \ &ft=='hvm'        ? ':!hvm c %; clang -O2 %:r.c -o %:r; time ./%:r 2; rm %:r %:r.c<cr>' :
-    "\ &ft=='formality'  ? ':!time fmio %:r<cr>' :
-    \ &ft=='eac'        ? ':!time eac %:r<cr>' :
-    \ &ft=='formcore'   ? ':!time fmio %:r<cr>' :
-    \ &ft=='moon'       ? ':!time moon run %:r<cr>' :
-    \ &ft=='sic'        ? ':!time sic -s -B %<cr>' :
-    \ &ft=='morte'      ? ':!time echo $(cat %) \| morte<cr>' :
-    \ &ft=='swift'      ? ':!time swift %<cr>' :
-    \ &ft=='solidity'   ? ':!truffle deploy<cr>' :
-    \ &ft=='idris2'     ? ':!idris2 % -o %:r<cr>:!time ./build/exec/%:r<cr>' :
-    \ &ft=='c'          ? ':!clang -O3 % -o %:r<cr>:!time ./%:r<cr>' :
-    \ &ft=='cuda'       ? ':!rm %:r; nvcc -O3 % -o %:r<cr>:!time ./%:r<cr>' :
-    \ &ft=='cpp'        ? ':!clang++ -O3 % -o %:r<cr>:!time ./%:r<cr>' :
-    \ &ft=='agda'       ? ':!agda -i src %<cr>' :
-    \ &ft=='ls'         ? ':!lsc -c %<cr>:!node %:r.js<cr>' :
-    \ &ft=='lispell'    ? ':!node ~/Viclib/lispedia/bin/lis.js reduce %:r<cr>' :
-    \ ':!time cc %<cr>')
 
-:nnoremap <expr> <leader>r ':!clear<cr>:w!<cr>'.(
+" \ &ft=='cuda'       ? ':!scp % victu:~/cuda<CR>:!ssh victu /usr/local/cuda/bin/nvcc -O3 /home/v/cuda/% -o /home/v/cuda/%:r<CR>:!ssh victu time /home/v/cuda/%:r<cr>' :
+:nnoremap <expr> R ':!clear && date <cr>:w!<cr>'.(
     \ expand('%:p')=='/Users/v/mist/main.js' ? ':!electron . --rpc ~/Library/Ethereum/testnet/geth.ipc<cr>' :
     \ expand('%:t')=='test.js' ? ':!mocha<cr>' :
     \ &ft=='caramel'    ? ':!time mel main<cr>' :
@@ -220,36 +177,48 @@ let g:ctrlp_by_filename = 0
     \ &ft=='elm'        ? '<esc>:!clear<cr>:w!<cr>:!elm % -r elm-runtime.js<cr>:!osascript ~/.vim/refresh.applescript &<cr>' :
     \ &ft=='racket'     ? ':!racket %<cr>' :
     \ &ft=='haskell'    ? ':!stack run<cr>' :
-    \ &ft=='rust'       ? ':!time cargo +nightly lrun --release<cr>' :
+    \ &ft=='icvm'       ? ':!time ic %' :
+    \ &ft=='haskell'    ? ':!time ghc -O2 % -o .tmp; time ./.tmp 0; rm %:r.hi %:r.o .tmp<cr>' :
+    \ &ft=='rust'       ? ':!time cargo run --release<cr>' :
     \ &ft=='go'         ? ':!time go run %<cr>' :
     \ &ft=='purescript' ? ':!pulp run <cr>' :
     \ &ft=='dvl'        ? ':!dvl run %<cr>' :
     \ &ft=='lambda'     ? ':!time absal -s %<cr>' :
     \ &ft=='javascript' ? ':!npm run build<cr>' :
+    \ &ft=='javascript' ? ':!cd .. && npx react-native run-ios' :
+    \ &ft=='typescript' ? ':!time deno --unstable run --reload --allow-all %<cr>' :
     \ &ft=='typescript' ? ':!npm run build<cr>' :
     \ &ft=='html'       ? ':!npm run build<cr>' :
     \ &ft=='eatt'       ? ':!time eatt %:r<cr>' :
-    \ &ft=='formality'  ? ':!time fm %<cr>' :
-    \ &ft=='formcore'   ? ':!time fmcjs %:r<cr>' :
-    \ &ft=='hvm'        ? ':!cargo install --path .<cr>' :
-    \ &ft=='kind'       ? ':!node /Users/v/vic/dev/Kind/web/build.js %:r<cr>' :
+    \ &ft=='fmfm'       ? ':!time fmjs %:r --run<cr>' :
+    \ &ft=='formality'  ? ':!time fmjs %:r --run<cr>' :
+    \ &ft=='kind'       ? ':!time kind ' . substitute(expand("%:r"),"/",".","g") . ' --run<cr>' :
     \ &ft=='kind2'      ? ':!time kind2 run %<cr>' :
+    \ &ft=='lambolt'    ? ':!time lam % c<cr>' :
+    \ &ft=='bend'       ? ':!time bend run-c % -s <cr>' :
+    \ &ft=='hvm2'       ? ':!hvm c %; clang -O2 %:r.c -o %:r; time ./%:r 2; rm %:r %:r.c<cr>' :
+    \ &ft=='hvm-lang'   ? ':!time hvm-lang run % <cr>' :
+    \ &ft=='hvm'        ? ':!time hvm run  %<cr>' :
+    \ &ft=='icvm'       ? ':!time ic %<cr>' :
+    \ &ft=='ic'         ? ':!time ic %<cr>' :
+    \ &ft=='ksc'        ? ':!time kindelia-cli local check --file %<cr>' :
+    \ &ft=='formality'  ? ':!time fmio %:r<cr>' :
     \ &ft=='eac'        ? ':!time eac %:r<cr>' :
+    \ &ft=='formcore'   ? ':!time fmio %:r<cr>' :
     \ &ft=='moon'       ? ':!time moon run %:r<cr>' :
     \ &ft=='sic'        ? ':!time sic -s -B %<cr>' :
     \ &ft=='morte'      ? ':!time echo $(cat %) \| morte<cr>' :
     \ &ft=='swift'      ? ':!time swift %<cr>' :
     \ &ft=='solidity'   ? ':!truffle deploy<cr>' :
-    \ &ft=='idris2'     ? ':!idris2 % -o %:r<cr>:!time ./%:r<cr>' :
-    \ &ft=='c'          ? ':!clang -O3 -Wall % -o %:r<cr>:!time ./%:r<cr>' :
-    \ &ft=='cuda'       ? ':!rm %:r; nvcc -O3 % -o %:r<cr>:!time ./%:r<cr>' :
+    \ &ft=='idris2'     ? ':!idris2 % -o %:r<cr>:!time ./build/exec/%:r<cr>' :
+    \ &ft=='c'          ? ':!clang -O3 % -o %:r<cr>:!time ./%:r<cr>' :
     \ &ft=='cpp'        ? ':!clang++ -O3 % -o %:r<cr>:!time ./%:r<cr>' :
     \ &ft=='agda'       ? ':!agda -i src %<cr>' :
     \ &ft=='ls'         ? ':!lsc -c %<cr>:!node %:r.js<cr>' :
     \ &ft=='lispell'    ? ':!node ~/Viclib/lispedia/bin/lis.js reduce %:r<cr>' :
     \ ':!time cc %<cr>')
 
-:nnoremap <expr> <leader>R ':!clear<cr>:w!<cr>'.(
+:nnoremap <expr> <leader>r ':!clear && date<cr>:w!<cr>'.(
     \ expand('%:p')=='/Users/v/mist/main.js' ? ':!electron . --rpc ~/Library/Ethereum/testnet/geth.ipc<cr>' :
     \ expand('%:t')=='test.js' ? ':!mocha<cr>' :
     \ &ft=='caramel'    ? ':!time mel main<cr>' :
@@ -268,10 +237,71 @@ let g:ctrlp_by_filename = 0
     \ &ft=='lambda'     ? ':!time absal -s %<cr>' :
     \ &ft=='javascript' ? ':!npm run build<cr>' :
     \ &ft=='typescript' ? ':!npm run build<cr>' :
-    \ &ft=='html'       ? ':!npm run build<cr>' : \ &ft=='eatt'       ? ':!time eatt %:r<cr>' : \ &ft=='formality'  ? ':!time fmio %:r<cr>' : \ &ft=='formcore'   ? ':!time fmcrun main<cr>' : \ &ft=='kind'       ? ':!node /Users/v/vic/dev/Kind/web/build.js %:r<cr>' : \ &ft=='eac'        ? ':!time eac %:r<cr>' : \ &ft=='moon'       ? ':!time moon run %:r<cr>' : \ &ft=='sic'        ? ':!time sic -s -B %<cr>' : \ &ft=='morte'      ? ':!time echo $(cat %) \| morte<cr>' : \ &ft=='swift'      ? ':!time swift %<cr>' : \ &ft=='solidity'   ? ':!truffle deploy<cr>' : \ &ft=='idris2'     ? ':!idris2 % -o %:r<cr>:!time ./%:r<cr>' : \ &ft=='c'          ? ':!clang -O3 % -o %:r<cr>:!time ./%:r<cr>' : \ &ft=='cuda'       ? ':!rm %:r; nvcc -O3 % -o %:r<cr>:!time ./%:r<cr>' : \ &ft=='cpp'        ? ':!clang++ -O3 % -o %:r<cr>:!time ./%:r<cr>' : \ &ft=='agda'       ? ':!agda -i src %<cr>' :
+    \ &ft=='html'       ? ':!npm run build<cr>' :
+    \ &ft=='eatt'       ? ':!time eatt %:r<cr>' :
+    \ &ft=='formality'  ? ':!time fm %<cr>' :
+    \ &ft=='formcore'   ? ':!time fmcjs %:r<cr>' :
+    \ &ft=='hvm-lang'   ? ':!time hvm-lang  % <cr>' :
+    \ &ft=='hvm'        ? ':!time hvm run  %<cr>' :
+    \ &ft=='kind2'      ? ':!time kind2 run %<cr>' :
+    \ &ft=='icvm'       ? ':!time ic % <cr>' :
+    \ &ft=='ic'         ? ':!time ic %<cr>' :
+    \ &ft=='ksc'        ? ':!time kindelia-cli local eval --file %<cr>' :
+    \ &ft=='eac'        ? ':!time eac %:r<cr>' :
+    \ &ft=='moon'       ? ':!time moon run %:r<cr>' :
+    \ &ft=='sic'        ? ':!time sic -s -B %<cr>' :
+    \ &ft=='morte'      ? ':!time echo $(cat %) \| morte<cr>' :
+    \ &ft=='swift'      ? ':!time swift %<cr>' :
+    \ &ft=='solidity'   ? ':!truffle deploy<cr>' :
+    \ &ft=='idris2'     ? ':!idris2 % -o %:r<cr>:!time ./%:r<cr>' :
+    \ &ft=='c'          ? ':!clang -O3 -Wall % -o %:r<cr>:!time ./%:r<cr>' :
+    \ &ft=='cuda'       ? ':!rm %:r; nvcc -O3 % -o %:r<cr>:!time ./%:r<cr>' :
+    \ &ft=='cpp'        ? ':!clang++ -O3 % -o %:r<cr>:!time ./%:r<cr>' :
+    \ &ft=='agda'       ? ':!agda -i src %<cr>' :
     \ &ft=='ls'         ? ':!lsc -c %<cr>:!node %:r.js<cr>' :
     \ &ft=='lispell'    ? ':!node ~/Viclib/lispedia/bin/lis.js reduce %:r<cr>' :
     \ ':!time cc %<cr>')
+
+:nnoremap <expr> <leader>R ':!clear && date<cr>:w!<cr>'.(
+    \ expand('%:p')=='/Users/v/mist/main.js' ? ':!electron . --rpc ~/Library/Ethereum/testnet/geth.ipc<cr>' :
+    \ expand('%:t')=='test.js' ? ':!mocha<cr>' :
+    \ &ft=='caramel'    ? ':!time mel main<cr>' :
+    \ &ft=='ocaml'      ? ':!ocamlc -o %:r %<cr>:!./%:r<cr>' :
+    \ &ft=='factor'     ? ':!~/factor/factor %<cr>' :
+    \ &ft=='python'     ? ':!time python %<cr>' :
+    \ &ft=='coc'        ? ':!time (coc type %:r; coc norm %:r)<cr>' :
+    \ &ft=='scheme'     ? ':!csc %<cr>:!time ./%:r<cr>' :
+    \ &ft=='elm'        ? '<esc>:!clear<cr>:w!<cr>:!elm % -r elm-runtime.js<cr>:!osascript ~/.vim/refresh.applescript &<cr>' :
+    \ &ft=='racket'     ? ':!racket %<cr>' :
+    \ &ft=='haskell'    ? ':!stack run<cr>' :
+    \ &ft=='rust'       ? ':!time cargo +nightly run --release<cr>' :
+    \ &ft=='go'         ? ':!time go run %<cr>' :
+    \ &ft=='purescript' ? ':!pulp run <cr>' :
+    \ &ft=='dvl'        ? ':!dvl run %<cr>' :
+    \ &ft=='lambda'     ? ':!time absal -s %<cr>' :
+    \ &ft=='javascript' ? ':!npm run build<cr>' :
+    \ &ft=='typescript' ? ':!npm run build<cr>' :
+    \ &ft=='html'       ? ':!npm run build<cr>' :
+    \ &ft=='eatt'       ? ':!time eatt %:r<cr>' :
+    \ &ft=='formality'  ? ':!time fmio %:r<cr>' :
+    \ &ft=='formcore'   ? ':!time fmcrun main<cr>' :
+    \ &ft=='ksc'        ? ':!time kic %<cr>' :
+    \ &ft=='kind2'      ? ':!time kind2 run %<cr>' :
+    \ &ft=='eac'        ? ':!time eac %:r<cr>' :
+    \ &ft=='moon'       ? ':!time moon run %:r<cr>' :
+    \ &ft=='sic'        ? ':!time sic -s -B %<cr>' :
+    \ &ft=='morte'      ? ':!time echo $(cat %) \| morte<cr>' :
+    \ &ft=='swift'      ? ':!time swift %<cr>' :
+    \ &ft=='solidity'   ? ':!truffle deploy<cr>' :
+    \ &ft=='idris2'     ? ':!idris2 % -o %:r<cr>:!time ./%:r<cr>' :
+    \ &ft=='c'          ? ':!clang -O3 % -o %:r<cr>:!time ./%:r<cr>' :
+    \ &ft=='cuda'       ? ':!rm %:r; nvcc -O3 % -o %:r<cr>:!time ./%:r<cr>' :
+    \ &ft=='cpp'        ? ':!clang++ -O3 % -o %:r<cr>:!time ./%:r<cr>' :
+    \ &ft=='agda'       ? ':!agda -i src %<cr>' :
+    \ &ft=='ls'         ? ':!lsc -c %<cr>:!node %:r.js<cr>' :
+    \ &ft=='lispell'    ? ':!node ~/Viclib/lispedia/bin/lis.js reduce %:r<cr>' :
+    \ ':!time cc %<cr>')
+
 
 :nnoremap <expr> <leader>m ':w!<cr>:!clear; cargo install --path .<cr>'
 ":nnoremap <expr> <leader>w ':w!<cr>:!clear; npm run build<cr>:!osascript ~/dev/me/refresh_chrome.applescript &<cr>'
@@ -454,9 +484,21 @@ au BufNewFile,BufRead *.kdl set syntax=javascript
 au BufNewFile,BufRead *.bolt set filetype=lambolt
 au BufNewFile,BufRead *.bolt set syntax=javascript
 au BufNewFile,BufRead *.hvm set filetype=hvm
+au BufNewFile,BufRead *.icvm set filetype=icvm
+au BufNewFile,BufRead *.ic set filetype=ic
 au BufNewFile,BufRead *.hvm set syntax=javascript
+au BufNewFile,BufRead *.ic set syntax=javascript
+au BufNewFile,BufRead *.icvm set syntax=javascript
+au BufNewFile,BufRead *.ksc set syntax=javascript
 au BufNewFile,BufRead *.hvm syntax region Password start=/^\/\/\~/ end=/$/ " HVM hidden comments
+au BufNewFile,BufRead *.bend syntax region Password start=/^\/\/\~/ end=/$/ " BEND hidden comments
+au BufNewFile,BufRead *.icvm syntax region Password start=/^\/\/\~/ end=/$/ " ICVM hidden comments
+au BufNewFile,BufRead *.ic syntax region Password start=/^\/\/\~/ end=/$/ " IC hidden comments
+au BufNewFile,BufRead *.ksc syntax region Password start=/^\/\/\~/ end=/$/ " KSC hidden comments
 au BufNewFile,BufRead *.hvm highlight Password ctermfg=red guifg=red ctermbg=red guifg=red
+au BufNewFile,BufRead *.icvm highlight Password ctermfg=red guifg=red ctermbg=red guifg=red
+au BufNewFile,BufRead *.ic highlight Password ctermfg=red guifg=red ctermbg=red guifg=red
+au BufNewFile,BufRead *.bend highlight Password ctermfg=red guifg=red ctermbg=red guifg=red
 au BufNewFile,BufRead *.pwd set syntax=javascript
 au BufNewFile,BufRead *.pvt set syntax=javascript
 
@@ -564,11 +606,17 @@ inoremap <buffer> <silent> <C-y>  <C-o>2h<C-o>:let _s=@/<CR><C-o>? {!\\| \?<CR><
 
 
 " Scheme
-au BufNewFile,BufRead *.scm set nolisp
-au BufRead,BufNewFile *.kind set filetype=kind
-au BufRead,BufNewFile *.kind2 set filetype=kind2
-au BufNewFile,BufRead *.html set syntax=html
-autocmd BufWinEnter *.agda noremap <silent> <buffer> <leader>l :call agda#load()<cr>
+au BufNewFile,BufRead   *.scm   set nolisp
+au BufRead,BufNewFile   *.kind  set filetype=kind
+au BufRead,BufNewFile   *.kind2 set filetype=kind2
+au BufRead,BufNewFile   *.ksc   set filetype=ksc
+au BufRead,BufNewFile   *.ic    set filetype=ic
+au BufRead,BufNewFile   *.hvm   set filetype=hvm
+au BufRead,BufNewFile   *.hvml  set filetype=hvml
+au BufRead,BufNewFile   *.hvmc  set filetype=hvmc
+au BufRead,BufNewFile   *.bend  set filetype=bend
+au BufNewFile,BufRead   *.html  set syntax=html
+autocmd BufWinEnter     *.agda noremap <silent> <buffer> <leader>l :call agda#load()<cr>
 
 
 "filetype on
@@ -598,7 +646,8 @@ set undodir=~/.vim/undo
 set foldlevel=0
 au Syntax * normal zR
 
-set formatoptions=cql
+" set formatoptions=cqlt
+set formatoptions+=croqlt
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
 " Close all open buffers on entering a window if the only
@@ -625,11 +674,19 @@ function! s:CloseIfOnlyNerdTreeLeft()
 endfunction
 
 " ===== KIND SYNTAX ======
-au BufRead,BufNewFile *.kind set filetype=kind
-
-au BufRead,BufNewFile *.kind2 set filetype=kind2
-au BufRead,BufNewFile *.kind2 set syntax=rust
-au BufNewFile,BufRead *.hvm set syntax=javascript
+au BufRead,BufNewFile *.kind    set filetype=kind
+au BufRead,BufNewFile *.kind2   set filetype=kind2
+au BufRead,BufNewFile *.hvm     set filetype=hvm
+au BufRead,BufNewFile *.bend    set filetype=bend
+au BufRead,BufNewFile *.ksc     set filetype=ksc
+au BufRead,BufNewFile *.ic      set filetype=ic
+au BufRead,BufNewFile *.kind2   set syntax  =kind
+au BufNewFile,BufRead *.hvm     set syntax  =javascript
+au BufNewFile,BufRead *.bend    set syntax  =bend
+au BufNewFile,BufRead *.hvm2    set syntax  =javascript
+au BufNewFile,BufRead *.hvmo2   set syntax  =javascript
+au BufNewFile,BufRead *.ksc     set syntax  =javascript
+au BufNewFile,BufRead *.ic      set syntax  =javascript
 
 " highlight default link
 
@@ -637,39 +694,22 @@ let g:rust_clip_command = 'xclip -selection clipboard'
 
 
 "  ===== COLORSCHEME =====
-" colorscheme gruvbox
-" set term=xterm-256color
-"set term=screen-256color
 if has('termguicolors')
     set termguicolors
 endif
 
-set background=dark
-let g:gruvbox_material_background = 'soft'
+" set background=dark
+set background=light
+" let g:gruvbox_material_background = 'soft'
 let g:gruvbox_material_better_performance = 1
 colorscheme gruvbox-material
-" let g:lightline.colorscheme = 'gruvbox_material'
-" let g:airline_theme = 'gruvbox_material'
-let g:gruvbox_material_enable_bold = 1
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_disable_terminal_colors = 1
-let g:gruvbox_material_better_performance = 1
 
-" colorscheme synthwave84
-" set termguicolors
-" set background=dark
-" let g:gruvbox_italic = 1
-" let g:gruvbox_underline = 1
-" let g:gruvbox_improved_strings = 1
-" let g:gruvbox_italicize_strings = 1
-" ------- theme GRUVBOX CONFIG ---------
-
+let g:airline_theme = 'gruvbox_material'
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline_powerline_fonts = 1
 
 " Change highlighting of cursor line when entering/leaving Insert Mode
 set cursorline
-                      " highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
-" autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#242426
-" autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
 
 syntax enable
 filetype plugin indent on
@@ -694,7 +734,20 @@ let g:NERDToggleCheckAllLines = 1
 " Add your own custom formats or override the defaults
 let g:NERDCustomDelimiters = { 'c': { 'left':'//' }}
 let g:NERDCustomDelimiters = { 'hvm': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'bend': { 'left':'#' }}
+let g:NERDCustomDelimiters = { 'Bend': { 'left':'#' }}
+let g:NERDCustomDelimiters = { 'BEND': { 'left':'#' }}
+let g:NERDCustomDelimiters = { 'hvml': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'hvm2': { 'left':'//' }}
 let g:NERDCustomDelimiters = { 'HVM': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'icvm': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'ICVM': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'ksc': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'KSC': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'Ksc': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'ic': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'Ic': { 'left':'//' }}
+let g:NERDCustomDelimiters = { 'IC': { 'left':'//' }}
 let g:NERDCustomDelimiters = { 'default': { 'left':'//' }}
 let g:NERDCustomDelimiters = { 'kind': { 'left':'//' }}
 let g:NERDCustomDelimiters = { 'kind2': { 'left':'//' }}
@@ -706,16 +759,6 @@ let g:indentLine_setColors = 1
 let g:indentLine_concealcursor = 'inc'
 let g:indentLine_conceallevel = 2
 let g:indentLine_char = "¦"
-
-"color
-" set termguicolors
-" let g:Hexokinase_highlighters = ['backgroundfull']
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline_theme='deus'
-" ================== mudei aqui =====================
-let g:airline_theme = 'gruvbox_material'
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_powerline_fonts = 1
 " ===================================================
 
 
@@ -734,11 +777,8 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 
 
-" let g:WebDevIconsOS = 'Darwin'
-" call current line as a terminal command, paste below
 map <leader>, 0y$:r!<C-r>"<CR>
 
-" CtrlP auto cache clearing.
 " ----------------------------------------------------------------------------
 function! SetupCtrlP()
   if exists("g:loaded_ctrlp") && g:loaded_ctrlp
@@ -770,8 +810,6 @@ function! SetTerminalTitle()
     endif
 endfunction
 autocmd BufEnter * call SetTerminalTitle()
-
-
 
 " https://vi.stackexchange.com/questions/2232/how-can-i-use-vim-as-a-hex-editor
 " vim -b : edit binary using xxd-format!
@@ -817,18 +855,15 @@ let g:netrw_altv=1
 
 " Vim syntax dor javascript
 let g:javascript_plugin_jsdoc = 1
-
+let vim_jsx_pretty_colorful_config = 1 
 
 " Markdown preview
 let vim_markdown_preview_github=1
 let vim_markdown_preview_toggle=2
 let vim_markdown_preview_browser='Firefox'
 
+
 set clipboard=unnamed
-" set clipboard=unnamedplus
-" set guifont=Hack\ 14
-" set guifont=Noto\ 11
-" set guifont=DroidSansMono_Nerd_Font:h11
-" set guifont=Source\ Code\ Pro\ 13
-" highlight Comment cterm=italic
+set guifont=Fira\ Code\ iScript:h14
+highlight Comment cterm=italic
 autocmd VimEnter * NERDTree | wincmd p

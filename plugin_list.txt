@@ -1,17 +1,20 @@
 https://github.com/chrisbra/Colorizer.git
+git@github.com:SergioBonatto/VimFileType.git
 https://github.com/derekelkins/agda-vim.git
 https://github.com/jiangmiao/auto-pairs.git
 git@github.com:SergioBonatto/bend-vim.git
 https://github.com/turbio/bracey.vim
+https://github.com/dylanaraps/crayon.git
 https://github.com/mattn/emmet-vim.git
 https://github.com/morhetz/gruvbox.git
 https://github.com/sainnhe/gruvbox-material.git
 https://github.com/Yggdroot/indentLine.git
-git@github.com:SergioBonatto/kind-vim.git
 https://github.com/preservim/nerdcommenter.git
 https://github.com/preservim/nerdtree.git
 https://github.com/Xuyuanp/nerdtree-git-plugin.git
 https://github.com/powerline/powerline.git
+https://github.com/rose-pine/vim
+git@github.com:SergioBonatto/vim-run-code.git
 https://tpope.io/vim/sensible.git
 https://github.com/rstacruz/sparkup.git
 https://github.com/vim-syntastic/syntastic.git
@@ -21,6 +24,7 @@ https://github.com/vim-airline/vim-airline-themes
 https://github.com/gko/vim-coloresque.git
 https://github.com/tpope/vim-commentary.git
 https://github.com/ap/vim-css-color.git
+https://github.com/Jorengarenar/vim-darkness.git
 https://github.com/ryanoasis/vim-devicons.git
 https://github.com/junegunn/vim-easy-align.git
 https://github.com/tpope/vim-fireplace.git
@@ -29,6 +33,7 @@ https://github.com/junegunn/vim-github-dashboard.git
 https://github.com/RRethy/vim-hexokinase.git
 https://github.com/pangloss/vim-javascript.git
 https://github.com/MaxMEllon/vim-jsx-pretty.git
+git@github.com:SergioBonatto/vim-kind.git
 https://github.com/adelarsq/vim-matchit.git
 https://github.com/tiagofumo/vim-nerdtree-syntax-highlight.git
 https://github.com/sheerun/vim-polyglot.git

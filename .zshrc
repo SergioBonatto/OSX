@@ -4,23 +4,11 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# vim dark noir 256
-export MC_SKIN=dark
-
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="cdimascio-lambda"
-
-# Blur {{{
-# if [[ $(ps --no-header -p $PPID -o comm) =~ '^yakuake|kitty$' ]]; then
-#         for wid in $(xdotool search --pid $PPID); do
-#             xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
-# fi
-# }}}
-
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,7 +60,7 @@ ZSH_THEME="cdimascio-lambda"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-HIST_STAMPS="dd/mm/yyyy"
+# HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -83,25 +71,25 @@ HIST_STAMPS="dd/mm/yyyy"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git
-	zsh-syntax-highlighting
-	zsh-autosuggestions
-	catimg
-	copybuffer
-	copyfile
-	dircycle
-	dirhistory
-	extract
-	git-prompt
-	gitfast
-	gitignore
-	history
-	jsontools
-	fzf
+  git
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+  catimg
+  copybuffer
+  copyfile
+  dircycle
+  dirhistory
+  extract
+  git-prompt
+  gitfast
+  gitignore
+  history
+  jsontools
+  # fzf
 )
 
 source $ZSH/oh-my-zsh.sh
-source /Users/fibonatto/.iterm2_shell_integration.zsh
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -127,33 +115,62 @@ source /Users/fibonatto/.iterm2_shell_integration.zsh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# alias class="cd ~/Documentos/class/Kind/Exercises"
-alias gs="git status"
-alias cl="clear"
-alias meufetch="~/.scripts/meufetch.sh"
-alias media="cd /media/Arquivos/"
-alias ck="cd ~/Wikind && ls"
-alias cj="cd ~/curso-js && ls"
-alias :q="exit"
-alias vi="vim"
-alias beta="cd ~/Beta-reduction-animation/ && ls "
-alias class="cd ~/learning && ls"
-alias cobra="starfetch -n ophiuchus"
+export PATH="~/.config/emacs/bin:$PATH"
+export PATH=$PATH:"/usr/local/bin"
+export LIBRARY_PATH="$LIBRARY_PATH:$(brew --prefix)/lib"
 
-# Codi bloco de nota para hackers
-# Usage: codi [filetype] [filename]
-codi() {
-  local syntax="${1:-python}"
-  shift
-  vim -c \
-    "let g:startify_disable_at_vimenter = 1 |\
-    set bt=nofile ls=0 noru nonu nornu |\
-    hi ColorColumn ctermbg=NONE |\
-    hi VertSplit ctermbg=NONE |\
-    hi NonText ctermfg=0 |\
-    Codi $syntax" "$@"
+alias doom="sh ~/.config/emacs/bin/doom"
+alias cuda='sh ~/CompileAndRun.sh'
+
+alias ":q"="exit"
+alias "dc"="cd"
+alias "cdd"="cd .."
+alias "gti"="git"
+alias "claer"="clear"
+alias "c"="clear"
+alias "cl"="clear"
+alias "clea"="clear"
+alias "cler"="clear"
+alias "clera"="clear"
+alias "celar"="clear"
+alias "caler"="clear"
+
+
+
+alias "push"="git push"
+alias "pull"="git pull"
+alias "commit"="git commit -m"
+alias "add"="git add"
+alias "status"="git status"
+alias "log"="git log"
+alias "diff"="git diff"
+alias "branch"="git branch"
+alias "checkout"="git checkout"
+
+alias "start"="npm start"
+alias "test"="npm test"
+alias "install"="npm install"
+
+alias dockerup="podman-compose up"
+alias dockerdown="podman-compose stop"
+alias dockerlist="podman machine list"
+
+_fzf_complete_chatsh() {
+  _fzf_complete --multi --reverse --prompt="chatsh> " -- "$@" < <(
+    curl -s https://openrouter.ai/api/v1/models | jq -r '.data[].id' | sed 's/^/openrouter:/'
+  )
 }
-# fim do codi
+[ -n "$BASH" ] && complete -F _fzf_complete_chatsh -o default -o bashdefault chatsh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
+  alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
+fi
+
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH=$PATH:~/.cabal/bin

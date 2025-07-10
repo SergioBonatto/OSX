@@ -1,8 +1,8 @@
 # OSX - Development Configuration
 
-This repository contains my custom configurations for development on macOS, including Vim, Zsh, Ghostty terminal settings, and custom themes.
+This repository contains custom configurations for development on macOS, including Vim, Zsh, Ghostty terminal settings, and custom themes.
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 OSX/
@@ -23,7 +23,7 @@ OSX/
 └── reuvolucionario.jpeg   # Additional image
 ```
 
-## 🚀 Key Features
+## Key Features
 
 ### Vim Configuration
 - **Modular configuration**: Separated into specific files for easy maintenance
@@ -47,7 +47,7 @@ OSX/
 - **Zsh integration**: Shell integration enabled
 - **Modern interface**: macOS tab style
 
-## 📦 Installation
+## Installation
 
 ### Prerequisites
 - macOS
@@ -95,7 +95,7 @@ vim +PlugInstall +qall
 source ~/.zshrc
 ```
 
-## 🎨 Custom Themes
+## Custom Themes
 
 ### Atom One Light
 - Theme based on the official Atom theme
@@ -107,7 +107,7 @@ source ~/.zshrc
 - Unique and modern color palette
 - Distinctive styles for code elements
 
-## ⌨️ Main Shortcuts
+## Main Shortcuts
 
 ### Vim
 - **Leader key**: `,` (comma)
@@ -121,7 +121,7 @@ source ~/.zshrc
 - **Navigation**: `q` (exit), `c` (clear), `cdd` (cd ..)
 - **Vim**: `v`, `im`, `vom` (all open vim)
 
-## 🔧 Customization
+## Customization
 
 ### Adding New Vim Plugins
 Edit `config/plugins.vim`:
@@ -137,7 +137,7 @@ Edit `config/mappings.vim` to add or modify shortcuts.
 - Modify `atomonelight.vim` or `bonatto.vim`
 - Or create your own theme based on the existing structure
 
-## 🤝 Contributing
+## Contributing
 
 Feel free to:
 - Report bugs
@@ -145,15 +145,15 @@ Feel free to:
 - Submit pull requests
 - Share your customizations
 
-## 📄 License
+## License
 
 This project is under the MIT license. See the LICENSE file for more details.
 
-## 📞 Contact
+## Contact
 
 - **Author**: Bonatto
 - **GitHub**: [SergioBonatto](https://github.com/SergioBonatto/)
 
 ---
 
-*These configurations have been tested on macOS and represent my personal development environment. Adapt as needed for your workflow.*
+These configurations have been tested on macOS and represent a personal development environment. Adapt as needed for your workflow.

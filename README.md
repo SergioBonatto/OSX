@@ -8,7 +8,6 @@ This repository contains my custom configurations for development on macOS, incl
 OSX/
 ├── .vimrc                 # Main Vim configuration
 ├── .zshrc                 # Zsh shell configuration
-├── vimrc                  # Alternative Vim configuration
 ├── ghostty.config         # Ghostty terminal configuration
 ├── config/                # Modular Vim configurations
 │   ├── plugins.vim        # Plugin management
@@ -18,10 +17,10 @@ OSX/
 │   ├── plugin-config.vim  # Plugin-specific configuration
 │   └── statusline.vim     # Status line configuration
 ├── atomonelight.vim       # Custom Atom One Light theme
-├── bonatto.vim           # Custom Bonatto theme
-├── statusline.vim        # Custom status line
-├── wallpaper-black.png   # Wallpaper
-└── reuvolucionario.jpeg  # Additional image
+├── bonatto.vim            # Custom Bonatto theme
+├── statusline.vim         # Custom status line
+├── wallpaper-black.png    # Wallpaper
+└── reuvolucionario.jpeg   # Additional image
 ```
 
 ## 🚀 Key Features

@@ -1,5 +1,11 @@
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="cdimascio-lambda"
+export PATH="$HOME/.config/emacs/bin:$PATH"
+export PATH="$PATH:/usr/local/bin"
+if command -v brew >/dev/null 2>&1; then
+  export LIBRARY_PATH="$LIBRARY_PATH:$(brew --prefix)/lib"
+fi
+
+ZSH_THEME="pawsh"
 plugins=(
   git
   zsh-syntax-highlighting
@@ -15,16 +21,13 @@ plugins=(
   gitignore
   history
   jsontools
+  vi-mode
+  python
 )
-
 source $ZSH/oh-my-zsh.sh
-export PATH="~/.config/emacs/bin:$PATH"
-export PATH=$PATH:"/usr/local/bin"
-export LIBRARY_PATH="$LIBRARY_PATH:$(brew --prefix)/lib"
 
-
-alias doom="sh ~/.config/emacs/bin/doom"
-alias cuda='sh ~/CompileAndRun.sh'
+alias "doom"="sh ~/.config/emacs/bin/doom"
+alias "cuda"="sh ~/CompileAndRun.sh"
 
 alias "q"="exit"
 alias "dc"="cd"
@@ -57,9 +60,10 @@ alias "start"="npm start"
 alias "test"="npm test"
 alias "install"="npm install"
 
-alias dockerup="podman-compose up"
-alias dockerdown="podman-compose stop"
-alias dockerlist="podman machine list"
+alias "dockerup"="podman-compose up"
+alias "dockerdown"="podman-compose stop"
+alias "dockerlist"="podman machine list"
+
 
 _fzf_complete_chatsh() {
   _fzf_complete --multi --reverse --prompt="chatsh> " -- "$@" < <(
@@ -97,4 +101,4 @@ eval $(opam env)
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+# export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"

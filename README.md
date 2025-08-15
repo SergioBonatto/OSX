@@ -9,6 +9,7 @@ OSX/
 ├── .vimrc                 # Main Vim configuration
 ├── .zshrc                 # Zsh shell configuration
 ├── ghostty.config         # Ghostty terminal configuration
+├── install.sh             # Automated setup script
 ├── config/                # Modular Vim configurations
 │   ├── plugins.vim        # Plugin management
 │   ├── settings.vim       # Basic settings
@@ -52,48 +53,92 @@ OSX/
 ### Prerequisites
 - macOS
 - [Homebrew](https://brew.sh)
-- [Oh My Zsh](https://ohmyz.sh)
-- [Vim-Plug](https://github.com/junegunn/vim-plug) (for Vim plugins)
 - [Ghostty Terminal](https://ghostty.org) (optional)
 
-### Quick Installation
+### Automated Installation (Recommended)
 
-1. **Clone the repository:**
+This repository provides an automated setup script to configure your development environment quickly and safely. The script will:
+- Check and install required dependencies
+- Backup your existing configurations (unless skipped)
+- Install and configure Vim, Zsh (with Oh My Zsh), Ghostty, and all plugins/themes
+- Create all necessary symbolic links
+- Run a health check and provide a summary
+
+#### 1. Clone the repository
 ```bash
-git clone https://github.com/SergioBonatto/OSX.git ~/.config/osx-dotfiles
-cd ~/.config/osx-dotfiles
+git clone https://github.com/SergioBonatto/OSX.git ~/osx-dotfiles
+cd ~/osx-dotfiles
 ```
 
-2. **Backup existing configurations:**
+#### 2. Run the installer
 ```bash
-mv ~/.vimrc ~/.vimrc.backup 2>/dev/null || true
-mv ~/.zshrc ~/.zshrc.backup 2>/dev/null || true
+chmod +x install.sh
+./install.sh
 ```
 
-3. **Create symbolic links:**
+#### 3. Options
+The installer supports several options:
+
+| Option           | Description                                    |
+|------------------|------------------------------------------------|
+| -h, --help       | Show help message                              |
+| -v, --verbose    | Enable verbose logging                         |
+| --skip-backup    | Skip backup of existing configurations         |
+| --check-only     | Only run health check, do not install anything |
+| --force          | Force reinstallation of existing components    |
+
+**Examples:**
 ```bash
-# Vim
-ln -sf ~/.config/osx-dotfiles/.vimrc ~/.vimrc
-mkdir -p ~/.vim/config
-ln -sf ~/.config/osx-dotfiles/config/* ~/.vim/config/
+# Full installation (recommended)
+./install.sh
 
-# Zsh
-ln -sf ~/.config/osx-dotfiles/.zshrc ~/.zshrc
+# Only run health check
+./install.sh --check-only
 
-# Ghostty (if installed)
-mkdir -p ~/.config/ghostty
-ln -sf ~/.config/osx-dotfiles/ghostty.config ~/.config/ghostty/config
+# Skip backup (not recommended)
+./install.sh --skip-backup
 ```
 
-4. **Install Vim plugins:**
+#### 4. Apply changes
+After installation, restart your terminal or run:
 ```bash
-vim +PlugInstall +qall
+exec $SHELL
 ```
 
-5. **Reload configurations:**
-```bash
-source ~/.zshrc
-```
+---
+
+### Manual Installation (Advanced)
+
+If you prefer to set up manually, follow these steps:
+
+1. **Backup existing configurations:**
+    ```bash
+    mv ~/.vimrc ~/.vimrc.backup 2>/dev/null || true
+    mv ~/.zshrc ~/.zshrc.backup 2>/dev/null || true
+    ```
+2. **Create symbolic links:**
+    ```bash
+    # Vim
+    ln -sf ~/osx-dotfiles/.vimrc ~/.vimrc
+    mkdir -p ~/.vim/config
+    ln -sf ~/osx-dotfiles/config/* ~/.vim/config/
+
+    # Zsh
+    ln -sf ~/osx-dotfiles/.zshrc ~/.zshrc
+
+    # Ghostty (if installed)
+    mkdir -p ~/.config/ghostty
+    ln -sf ~/osx-dotfiles/ghostty.config ~/.config/ghostty/config
+    ```
+3. **Install Vim plugins:**
+    ```bash
+    vim +PlugInstall +qall
+    ```
+4. **Reload configurations:**
+    ```bash
+    source ~/.zshrc
+    ```
+
 
 ## Custom Themes
 

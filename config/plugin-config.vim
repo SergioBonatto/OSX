@@ -117,3 +117,12 @@ augroup PluginAutoCommands
   " Additional phi file configuration for syntax
   autocmd BufNewFile,BufRead *.phi setlocal filetype=phi
 augroup END
+
+
+" Vimsence
+let g:vimsence_client_id = '715372754408439852'
+let g:vimsence_editing_details = 'Editing: {}'
+let g:vimsence_editing_state = 'Working on: {}'
+let g:vimsence_file_explorer_text = 'In NERDTree'
+let g:vimsence_file_explorer_details = 'Looking for files'
+let g:vimsence_custom_icons = {'filetype': 'iconname'}

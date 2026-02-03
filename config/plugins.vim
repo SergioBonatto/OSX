@@ -25,6 +25,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
+Plug 'SergioBonatto/gemini-vim'
 
 " === Git ===
 Plug 'tpope/vim-fugitive'
@@ -47,5 +48,4 @@ Plug 'SergioBonatto/vim-kind'
 " === Utilities ===
 Plug 'sakshamgupta05/vim-todo-highlight'
 Plug 'wakatime/vim-wakatime'
-
 call plug#end()

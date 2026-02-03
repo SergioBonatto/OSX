@@ -22,7 +22,7 @@ plugins=(
   jsontools
   python
   brew
-  docker
+  # docker
   npm
   node
 )
@@ -92,6 +92,7 @@ alias pull="git pull"
 alias commit="git commit -m"
 alias add="git add"
 alias status="git status"
+alias remove="git remote remove origin"
 alias log="git log"
 alias diff="git diff"
 alias branch="git branch"
@@ -114,9 +115,9 @@ alias gpl="git pull"
 alias doom="sh ~/.config/emacs/bin/doom"
 
 # Docker aliases
-alias dockerup="podman-compose up"
-alias dockerdown="podman-compose stop"
-alias dockerlist="podman machine list"
+# alias dockerup="podman-compose up"
+# alias dockerdown="podman-compose stop"
+# alias dockerlist="podman machine list"
 
 # Utility aliases
 alias ll="ls -la"
@@ -236,5 +237,9 @@ if command -v fzf >/dev/null 2>&1; then
   [ -n "$BASH" ] && complete -F _fzf_complete_chatsh -o default -o bashdefault chatsh
 fi
 
+# Claude
+export ANTHROPIC_API_KEY=$(cat ~/.config/claude.token)
+
 # ITERM2 (sempre por último)
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"

@@ -1,7 +1,7 @@
 " Atom One Light Color Scheme for Vim
-" Based on the official Atom One Light theme
-" Maintains full fidelity to the original Atom colors
-" Author: Bonatto
+" Baseado no tema oficial Atom One Light
+" Mantém fidelidade total às cores originais do Atom
+" Autor: Bonatto
 " Version: 2.0
 
 set background=light
@@ -11,29 +11,29 @@ if exists("syntax_on")
 endif
 let g:colors_name = "atomonelight"
 
-" Compatibility check
+" Verificação de compatibilidade
 let s:t_Co = exists('&t_Co') && !empty(&t_Co) && &t_Co > 1 ? &t_Co : 2
 
-" Official Atom One Light color palette
-let s:mono_1    = "#383a42"  " Main text
-let s:mono_2    = "#686b78"  " Secondary text
-let s:mono_3    = "#a0a1a7"  " Comments/disabled
-let s:hue_1     = "#0184bb"  " Blue (functions)
-let s:hue_2     = "#4078f2"  " Light blue (types)
-let s:hue_3     = "#a626a4"  " Purple (keywords)
-let s:hue_4     = "#50a14f"  " Green (strings)
-let s:hue_5     = "#e45649"  " Red (variables)
-let s:hue_5_2   = "#ca1243"  " Dark red
-let s:hue_6     = "#986801"  " Orange (numbers)
-let s:hue_6_2   = "#c18401"  " Light orange
+" Paleta de cores oficial do Atom One Light
+let s:mono_1    = "#383a42"  " Texto principal
+let s:mono_2    = "#686b78"  " Texto secundário
+let s:mono_3    = "#a0a1a7"  " Comentários/desabilitado
+let s:hue_1     = "#0184bb"  " Azul (funções)
+let s:hue_2     = "#4078f2"  " Azul claro (tipos)
+let s:hue_3     = "#a626a4"  " Roxo (keywords)
+let s:hue_4     = "#50a14f"  " Verde (strings)
+let s:hue_5     = "#e45649"  " Vermelho (variáveis)
+let s:hue_5_2   = "#ca1243"  " Vermelho escuro
+let s:hue_6     = "#986801"  " Laranja (números)
+let s:hue_6_2   = "#c18401"  " Laranja claro
 
-" Background and interface colors
-let s:syntax_bg     = "#fafafa"  " Main background
-let s:syntax_gutter = "#9ca0a4"  " Line numbers
-let s:syntax_guide  = "#e5e5e6"  " Visual guides
-let s:syntax_accent = "#526eff"  " Accents
+" Cores de fundo e interface
+let s:syntax_bg     = "#fafafa"  " Fundo principal
+let s:syntax_gutter = "#9ca0a4"  " Numeração de linha
+let s:syntax_guide  = "#e5e5e6"  " Guias visuais
+let s:syntax_accent = "#526eff"  " Acentos
 
-" Function to define highlights
+" Função para definir highlights
 function! s:h(group, style)
   execute "highlight" a:group
     \ "guifg="   (has_key(a:style, "fg")    ? a:style.fg.gui   : "NONE")
@@ -45,7 +45,7 @@ function! s:h(group, style)
     \ "cterm="   (has_key(a:style, "cterm") ? a:style.cterm    : "NONE")
 endfunction
 
-" Terminal color mapping
+" Mapeamento de cores para terminal
 let s:fg        = {"gui": s:mono_1,    "cterm": "237"}
 let s:bg        = {"gui": s:syntax_bg, "cterm": "15"}
 let s:comment   = {"gui": s:mono_3,    "cterm": "247"}
@@ -392,7 +392,7 @@ endif
 " ===================================================================
 " LEGACY SUPPORT
 " ===================================================================
-" For compatibility with Vim 7.x and versions that do not support guisp
+" Para compatibilidade com Vim 7.x e versões que não suportam guisp
 if !has("gui_running") && &t_Co != 88 && &t_Co != 256
   finish
 endif

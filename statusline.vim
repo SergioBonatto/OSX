@@ -1,42 +1,42 @@
 " ===================================================================
 " ATOM ONE LIGHT STATUSLINE MODULE
-" Semantic mapping based on the original Atom One Light palette
+" Mapeamento semântico baseado na paleta original do Atom One Light
 " ===================================================================
 
-" Guard to avoid conflicts
+" Guard para evitar conflitos
 if exists('g:loaded_statusline_atom_one_light')
   finish
 endif
 let g:loaded_statusline_atom_one_light = 1
 
-" Statusline initialization function
+" Função de inicialização do statusline
 function! statusline#init()
-  " Official Atom One Light colors - EXACT
-  let s:bg        = "#fafafa"  " Main background
-  let s:fg        = "#383a42"  " Default text (Normal, Operator)
-  let s:comment   = "#a0a1a7"  " Comments
+  " Cores oficiais do Atom One Light - EXATAS
+  let s:bg        = "#fafafa"  " Background principal
+  let s:fg        = "#383a42"  " Texto padrão (Normal, Operator)
+  let s:comment   = "#a0a1a7"  " Comentários
   let s:keyword   = "#a626a4"  " Keywords (Statement, Conditional...)
   let s:string    = "#50a14f"  " Strings
   let s:number    = "#986801"  " Numbers, Boolean, Constant
   let s:function  = "#4078f2"  " Functions
   let s:variable  = "#e45649"  " Identifier, Special, Delete (git)
-  let s:orange    = "#c18401"  " Alternative yellow/orange tone
-  let s:guide     = "#e5e5e6"  " Visual guides (separators)
+  let s:orange    = "#c18401"  " Tom amarelado/laranja alternativo
+  let s:guide     = "#e5e5e6"  " Guias visuais (separadores)
   let s:cursor_bg = "#f0f0f0"  " CursorLine background
 
-  " Mode color mapping:
-  " Normal    -> Function (blue)     - main mode, calm color
-  " Insert    -> String (green)      - insert, growth color
-  " Replace   -> Variable (red)      - replace, attention color
-  " Visual    -> Keyword (purple)    - selection, highlight color
-  " Command   -> Number (orange)     - command, action color
-  " Terminal  -> Orange (yellow)     - terminal, alternative color
+  " Mapeamento de cores por modo:
+  " Normal    -> Function (azul)     - modo principal, cor calma
+  " Insert    -> String (verde)      - inserção, cor de crescimento
+  " Replace   -> Variable (vermelho) - substituição, cor de atenção
+  " Visual    -> Keyword (roxo)      - seleção, cor de destaque
+  " Command   -> Number (laranja)    - comando, cor de ação
+  " Terminal  -> Orange (amarelo)    - terminal, cor alternativa
 
-  " Base StatusLine - using correct colors
+  " StatusLine base - usando cores corretas
   execute 'highlight StatusLine      guifg=' . s:fg . ' guibg=' . s:guide . ' gui=NONE'
   execute 'highlight StatusLineNC    guifg=' . s:comment . ' guibg=' . s:guide . ' gui=NONE'
 
-  " Mode colors - using the official palette with better contrast
+  " Mode colors - usando a paleta oficial com melhor contraste
   execute 'highlight ModeNFGC        guifg=' . s:bg . ' guibg=' . s:function . ' gui=bold'
   execute 'highlight ModeNFGCS       guifg=' . s:function . ' guibg=' . s:guide . ' gui=NONE'
   execute 'highlight ModeIFGC        guifg=' . s:bg . ' guibg=' . s:string . ' gui=bold'
@@ -50,7 +50,7 @@ function! statusline#init()
   execute 'highlight ModeTFGC        guifg=' . s:bg . ' guibg=' . s:orange . ' gui=bold'
   execute 'highlight ModeTFGCS       guifg=' . s:orange . ' guibg=' . s:guide . ' gui=NONE'
 
-  " Buffer and status colors - official colors with correct semantics
+  " Buffer e status colors - cores oficiais com semântica correta
   execute 'highlight BufferS         guifg=' . s:comment . ' guibg=' . s:guide . ' gui=NONE'
   execute 'highlight Modified        guifg=' . s:fg . ' guibg=#ffe792 gui=bold'
   execute 'highlight ModifiedS       guifg=#ffe792 guibg=' . s:guide . ' gui=NONE'
@@ -66,7 +66,7 @@ endfunction
 " STATUSLINE FUNCTIONS
 " ===================================================================
 
-" Powerline symbols
+" Símbolos powerline
 function! s:GetSymbols()
   if empty($DISPLAY) || !has('gui_running')
     return ['', '']
@@ -80,7 +80,7 @@ function! statusline#DetectMode(mode)
   let [l:leftSymbol, l:rightSymbol] = s:GetSymbols()
   let l:statusline = ""
 
-  " Mode section with appropriate colors
+  " Mode section com cores apropriadas
   if a:mode == 'n'
     let l:statusline .= "%#ModeNFGCS#" . l:leftSymbol
     let l:statusline .= "%#ModeNFGC# NORMAL "
@@ -128,17 +128,17 @@ function! statusline#DetectMode(mode)
     let l:statusline .= "%#StatusLine#[%n/%{bufnr('$')}] "
   endif
 
-  " File name section with modification indicator
+  " File name section com indicador de modificação
   if &modified == 1
     let l:statusline .= "%#Modified# %.20f %#ModifiedS#" . l:rightSymbol . " "
   else
     let l:statusline .= "%#StatusLine# %.20f %#BufferS#" . l:rightSymbol . " "
   endif
 
-  " Right alignment
+  " Alinhamento à direita
   let l:statusline .= "%="
 
-  " Git information (if available)
+  " Git information (se disponível)
   if exists('*FugitiveHead') && len(FugitiveHead()) > 0
     let l:statusline .= "%#BufferS#" . l:leftSymbol . "%#SLGreen# " . FugitiveHead() . " "
     if exists('*GitGutterGetHunkSummary')
@@ -153,7 +153,7 @@ function! statusline#DetectMode(mode)
   " File type
   let l:statusline .= "%#BufferS#" . l:leftSymbol . "%#StatusLine# %{statusline#GetFileType()} "
 
-  " Error/Lint status with better handling
+  " Error/Lint status com melhor tratamento
   if exists('*coc#status') && !empty(get(b:, 'coc_diagnostic_info', {}))
     let l:coc_status = coc#status()
     if l:coc_status != ""
@@ -175,7 +175,7 @@ function! statusline#DetectMode(mode)
   " Cursor position
   let l:statusline .= "%#BufferS#" . l:leftSymbol . "%#StatusLine# %-8.(%l,%c%) "
 
-  " Final percentage section with mode color
+  " Final percentage section com cor do modo
   if a:mode == 'n'
     let l:statusline .= "%#ModeNFGC# %P %#ModeNFGCS#" . l:rightSymbol
   elseif a:mode == 'i'
@@ -199,7 +199,7 @@ endfunction
 " HELPER FUNCTIONS
 " ===================================================================
 
-" Debug function to check loading
+" Função de debug para verificar carregamento
 function! statusline#debug()
   echom "=== DEBUG STATUSLINE ==="
   echom "statusline#init exists: " . exists('*statusline#init')
@@ -211,7 +211,7 @@ function! statusline#debug()
   echom "======================="
 endfunction
 
-" Helper function for filetype
+" Função auxiliar para filetype
 function! statusline#GetFileType(...)
   if a:0 == 0
     let filetype = &filetype
@@ -226,7 +226,7 @@ function! statusline#GetFileType(...)
   endif
 endfunction
 
-" Helper function for ALE status
+" Função auxiliar para ALE status
 function! statusline#GetAleStatus() abort
   if !exists('*ale#statusline#Count')
     return 'N/A'
@@ -247,7 +247,7 @@ function! statusline#GetAleStatus() abort
   endtry
 endfunction
 
-" Helper function for GitGutter status
+" Função auxiliar para GitGutter status
 function! statusline#GitGutterStatus()
   if !exists('*GitGutterGetHunkSummary')
     return ''
@@ -263,48 +263,47 @@ function! statusline#GitGutterStatus()
     return ''
   endtry
 endfunction
-
 " ===================================================================
-" MODULE DOCUMENTATION
+" DOCUMENTAÇÃO DO MÓDULO
 " ===================================================================
-" Statusline module for Atom One Light with OFFICIAL colors
+" Statusline module para Atom One Light com cores OFICIAIS
 "
-" USAGE:
-" In your .vimrc, add after loading plugins:
+" USO:
+" No seu .vimrc, adicione após carregar os plugins:
 "   autocmd VimEnter * call statusline#init()
 "   set laststatus=2
 "   set statusline=%!statusline#DetectMode(mode())
 "
-" AVAILABLE FUNCTIONS:
-" • statusline#init() - Initializes statusline colors
-" • statusline#DetectMode(mode) - Builds the statusline based on mode
-" • statusline#GetFileType(...) - Returns the formatted file type
-" • statusline#GetAleStatus() - ALE linter status
-" • statusline#GitGutterStatus() - Git status via GitGutter
+" FUNÇÕES DISPONÍVEIS:
+" • statusline#init() - Inicializa as cores do statusline
+" • statusline#DetectMode(mode) - Constrói o statusline baseado no modo
+" • statusline#GetFileType(...) - Retorna o tipo de arquivo formatado
+" • statusline#GetAleStatus() - Status do ALE linter
+" • statusline#GitGutterStatus() - Status do Git via GitGutter
 "
-" IMPLEMENTED COLORS (exact palette):
-" • #fafafa - Main background
-" • #383a42 - Default text (Normal, Operator)
-" • #a0a1a7 - Comments and separators
-" • #a626a4 - Keywords (Visual mode)
-" • #50a14f - Strings (Insert mode)
-" • #986801 - Numbers/Constants (Command mode)
-" • #4078f2 - Functions (Normal mode)
-" • #e45649 - Identifiers/Variables (Replace mode, errors)
-" • #c18401 - Alternative orange (Terminal mode)
-" • #e5e5e6 - Visual guides
+" CORES IMPLEMENTADAS (paleta exata):
+" • #fafafa - Background principal
+" • #383a42 - Texto padrão (Normal, Operator)
+" • #a0a1a7 - Comentários e separadores
+" • #a626a4 - Keywords (modo Visual)
+" • #50a14f - Strings (modo Insert)
+" • #986801 - Numbers/Constants (modo Command)
+" • #4078f2 - Functions (modo Normal)
+" • #e45649 - Identifiers/Variables (modo Replace, erros)
+" • #c18401 - Orange alternativo (modo Terminal)
+" • #e5e5e6 - Guias visuais
 " • #f0f0f0 - CursorLine background
 "
-" FEATURES:
-" • Semantic color mapping by mode
-" • Powerline symbol support (when available)
-" • Git integration (fugitive + gitgutter)
-" • Linter support (ALE + CoC)
-" • Modified file indication
-" • Robust fallbacks for missing plugins
-" • Load guard to avoid conflicts
+" RECURSOS:
+" • Mapeamento semântico de cores por modo
+" • Suporte a símbolos powerline (quando disponível)
+" • Integração com Git (fugitive + gitgutter)
+" • Suporte a linters (ALE + CoC)
+" • Indicação de arquivos modificados
+" • Fallbacks robustos para plugins ausentes
+" • Guard de carregamento para evitar conflitos
 "
-" OPTIONAL DEPENDENCIES:
-" • vim-fugitive, vim-gitgutter, ALE/CoC, powerline font
+" DEPENDÊNCIAS OPCIONAIS:
+" • vim-fugitive, vim-gitgutter, ALE/CoC, fonte powerline
 
 " vim:set ft=vim et sw=2:

@@ -1,37 +1,37 @@
-" Atom One Light Color Scheme for Vim
-" Baseado no tema oficial Atom One Light
-" Mantém fidelidade total às cores originais do Atom
-" Autor: Bonatto
-" Version: 2.0
+" Atom One Light (Matte) Color Scheme for Vim
+" Baseado no tema oficial Atom One Light, ajustado para baixo contraste
+" Mantém fidelidade às cores originais do Atom, mas com estética fosca/e-ink
+" Autor: Bonatto (Matte Mod)
+" Version: 2.1-matte
 
 set background=light
 highlight clear
 if exists("syntax_on")
   syntax reset
 endif
-let g:colors_name = "atomonelight"
+let g:colors_name = "atomonelight_matte"
 
 " Verificação de compatibilidade
 let s:t_Co = exists('&t_Co') && !empty(&t_Co) && &t_Co > 1 ? &t_Co : 2
 
-" Paleta de cores oficial do Atom One Light
-let s:mono_1    = "#383a42"  " Texto principal
-let s:mono_2    = "#686b78"  " Texto secundário
-let s:mono_3    = "#a0a1a7"  " Comentários/desabilitado
-let s:hue_1     = "#0184bb"  " Azul (funções)
-let s:hue_2     = "#4078f2"  " Azul claro (tipos)
-let s:hue_3     = "#a626a4"  " Roxo (keywords)
-let s:hue_4     = "#50a14f"  " Verde (strings)
-let s:hue_5     = "#e45649"  " Vermelho (variáveis)
-let s:hue_5_2   = "#ca1243"  " Vermelho escuro
-let s:hue_6     = "#986801"  " Laranja (números)
-let s:hue_6_2   = "#c18401"  " Laranja claro
+" Paleta de cores oficial do Atom One Light (Versão Matte/Dessaturada)
+let s:mono_1    = "#4a4c54"  " Texto principal (mais suave)
+let s:mono_2    = "#767985"  " Texto secundário
+let s:mono_3    = "#a6a8ad"  " Comentários/desabilitado
+let s:hue_1     = "#338ab3"  " Azul (funções)
+let s:hue_2     = "#5d85de"  " Azul claro (tipos)
+let s:hue_3     = "#a14a9f"  " Roxo (keywords)
+let s:hue_4     = "#669e65"  " Verde (strings)
+let s:hue_5     = "#cc6258"  " Vermelho (variáveis)
+let s:hue_5_2   = "#b8375c"  " Vermelho escuro
+let s:hue_6     = "#9c7a31"  " Laranja (números)
+let s:hue_6_2   = "#b58928"  " Laranja claro
 
-" Cores de fundo e interface
-let s:syntax_bg     = "#fafafa"  " Fundo principal
+" Cores de fundo e interface (CORRIGIDAS PARA O ITERM #eceaeb)
+let s:syntax_bg     = "#eceaeb"  " Fundo principal idêntico ao iTerm
 let s:syntax_gutter = "#9ca0a4"  " Numeração de linha
-let s:syntax_guide  = "#e5e5e6"  " Guias visuais
-let s:syntax_accent = "#526eff"  " Acentos
+let s:syntax_guide  = "#d8d6d7"  " Guias visuais
+let s:syntax_accent = "#6e83e6"  " Acentos
 
 " Função para definir highlights
 function! s:h(group, style)
@@ -45,30 +45,30 @@ function! s:h(group, style)
     \ "cterm="   (has_key(a:style, "cterm") ? a:style.cterm    : "NONE")
 endfunction
 
-" Mapeamento de cores para terminal
-let s:fg        = {"gui": s:mono_1,    "cterm": "237"}
-let s:bg        = {"gui": s:syntax_bg, "cterm": "15"}
-let s:comment   = {"gui": s:mono_3,    "cterm": "247"}
-let s:keyword   = {"gui": s:hue_3,     "cterm": "170"}
-let s:string    = {"gui": s:hue_4,     "cterm": "71"}
-let s:function  = {"gui": s:hue_2,     "cterm": "69"}
-let s:variable  = {"gui": s:hue_5,     "cterm": "167"}
-let s:number    = {"gui": s:hue_6,     "cterm": "136"}
-let s:visual    = {"gui": "#e5e5e6",   "cterm": "252"}
-let s:gutter    = {"gui": s:syntax_gutter, "cterm": "249"}
+" Mapeamento de cores forçado para o terminal (Matte)
+let s:fg        = {"gui": s:mono_1,    "cterm": "NONE"}
+let s:bg        = {"gui": s:syntax_bg, "cterm": "NONE"}
+let s:comment   = {"gui": s:mono_3,    "cterm": "NONE"}
+let s:keyword   = {"gui": s:hue_3,     "cterm": "NONE"}
+let s:string    = {"gui": s:hue_4,     "cterm": "NONE"}
+let s:function  = {"gui": s:hue_2,     "cterm": "NONE"}
+let s:variable  = {"gui": s:hue_5,     "cterm": "NONE"}
+let s:number    = {"gui": s:hue_6,     "cterm": "NONE"}
+let s:visual    = {"gui": "#d8d6d7",   "cterm": "NONE"}
+let s:gutter    = {"gui": s:syntax_gutter, "cterm": "NONE"}
 
 " ===================================================================
 " EDITOR SETTINGS
 " ===================================================================
 call s:h("Normal",        {"fg": s:fg,      "bg": s:bg})
 call s:h("Cursor",        {"fg": s:bg,      "bg": s:fg})
-call s:h("CursorLine",    {"bg": {"gui": "#f0f0f0", "cterm": "255"}})
+call s:h("CursorLine",    {"bg": {"gui": "#e2e0e1", "cterm": "254"}})
 call s:h("CursorLineNr",  {"fg": s:fg,      "gui": "bold", "cterm": "bold"})
-call s:h("CursorColumn",  {"bg": {"gui": "#f0f0f0", "cterm": "255"}})
-call s:h("ColorColumn",   {"bg": {"gui": "#f0f0f0", "cterm": "255"}})
+call s:h("CursorColumn",  {"bg": {"gui": "#e2e0e1", "cterm": "254"}})
+call s:h("ColorColumn",   {"bg": {"gui": "#e2e0e1", "cterm": "254"}})
 call s:h("LineNr",        {"fg": s:gutter})
-call s:h("VertSplit",     {"fg": {"gui": "#e5e5e6", "cterm": "252"}, "bg": s:bg})
-call s:h("Folded",        {"fg": s:comment, "bg": {"gui": "#e5e5e6", "cterm": "252"}, "gui": "italic"})
+call s:h("VertSplit",     {"fg": {"gui": "#d8d6d7", "cterm": "252"}, "bg": s:bg})
+call s:h("Folded",        {"fg": s:comment, "bg": {"gui": "#d8d6d7", "cterm": "252"}, "gui": "italic"})
 call s:h("FoldColumn",    {"fg": s:comment, "bg": s:bg})
 call s:h("SignColumn",    {"fg": s:gutter,  "bg": s:bg})
 
@@ -123,34 +123,34 @@ call s:h("Todo",          {"fg": s:keyword,  "bg": s:bg, "gui": "bold,italic", "
 call s:h("MoreMsg",       {"fg": s:string,   "gui": "bold", "cterm": "bold"})
 call s:h("Question",      {"fg": s:function, "gui": "bold", "cterm": "bold"})
 
-call s:h("Search",        {"fg": s:fg, "bg": {"gui": "#ffe792", "cterm": "221"}})
-call s:h("IncSearch",     {"fg": s:fg, "bg": {"gui": "#ffe792", "cterm": "221"}, "gui": "bold", "cterm": "bold"})
+call s:h("Search",        {"fg": s:fg, "bg": {"gui": "#e8dcab", "cterm": "187"}})
+call s:h("IncSearch",     {"fg": s:fg, "bg": {"gui": "#e8dcab", "cterm": "187"}, "gui": "bold", "cterm": "bold"})
 call s:h("Visual",        {"bg": s:visual})
 call s:h("VisualNOS",     {"bg": s:visual})
 
 call s:h("MatchParen",    {"fg": s:bg, "bg": s:function, "gui": "bold", "cterm": "bold"})
 call s:h("Underlined",    {"fg": s:function, "gui": "underline", "cterm": "underline"})
 
-call s:h("StatusLine",    {"fg": s:fg, "bg": {"gui": "#e5e5e6", "cterm": "252"}})
-call s:h("StatusLineNC",  {"fg": s:comment, "bg": {"gui": "#e5e5e6", "cterm": "252"}})
+call s:h("StatusLine",    {"fg": s:fg, "bg": {"gui": "#d8d6d7", "cterm": "252"}})
+call s:h("StatusLineNC",  {"fg": s:comment, "bg": {"gui": "#d8d6d7", "cterm": "252"}})
 call s:h("WildMenu",      {"fg": s:bg, "bg": s:function})
 
-call s:h("Pmenu",         {"fg": s:fg, "bg": {"gui": "#e5e5e6", "cterm": "252"}})
+call s:h("Pmenu",         {"fg": s:fg, "bg": {"gui": "#d8d6d7", "cterm": "252"}})
 call s:h("PmenuSel",      {"fg": s:bg, "bg": s:function})
-call s:h("PmenuSbar",     {"bg": {"gui": "#e5e5e6", "cterm": "252"}})
+call s:h("PmenuSbar",     {"bg": {"gui": "#d8d6d7", "cterm": "252"}})
 call s:h("PmenuThumb",    {"bg": s:comment})
 
-call s:h("TabLine",       {"fg": s:comment, "bg": {"gui": "#e5e5e6", "cterm": "252"}})
+call s:h("TabLine",       {"fg": s:comment, "bg": {"gui": "#d8d6d7", "cterm": "252"}})
 call s:h("TabLineSel",    {"fg": s:fg, "bg": s:bg})
-call s:h("TabLineFill",   {"fg": s:comment, "bg": {"gui": "#e5e5e6", "cterm": "252"}})
+call s:h("TabLineFill",   {"fg": s:comment, "bg": {"gui": "#d8d6d7", "cterm": "252"}})
 
 " ===================================================================
 " DIFF HIGHLIGHTING
 " ===================================================================
-call s:h("DiffAdd",       {"fg": s:string, "bg": {"gui": "#e6ffed", "cterm": "194"}})
-call s:h("DiffChange",    {"fg": s:number, "bg": {"gui": "#fff5b4", "cterm": "229"}})
-call s:h("DiffDelete",    {"fg": s:variable, "bg": {"gui": "#ffecec", "cterm": "224"}})
-call s:h("DiffText",      {"fg": s:fg, "bg": {"gui": "#fff5b4", "cterm": "229"}, "gui": "bold", "cterm": "bold"})
+call s:h("DiffAdd",       {"fg": s:string, "bg": {"gui": "#d8ecd9", "cterm": "194"}})
+call s:h("DiffChange",    {"fg": s:number, "bg": {"gui": "#e5dfb8", "cterm": "229"}})
+call s:h("DiffDelete",    {"fg": s:variable, "bg": {"gui": "#ebd6d6", "cterm": "224"}})
+call s:h("DiffText",      {"fg": s:fg, "bg": {"gui": "#e5dfb8", "cterm": "229"}, "gui": "bold", "cterm": "bold"})
 
 call s:h("diffAdded",     {"fg": s:string})
 call s:h("diffRemoved",   {"fg": s:variable})
@@ -284,15 +284,15 @@ call s:h("CocInfoSign",         {"fg": s:function, "bg": s:bg})
 call s:h("CocHintSign",         {"fg": s:comment,  "bg": s:bg})
 
 " FZF
-call s:h("fzf1",                {"fg": s:variable, "bg": {"gui": "#e5e5e6", "cterm": "252"}})
-call s:h("fzf2",                {"fg": s:variable, "bg": {"gui": "#e5e5e6", "cterm": "252"}})
-call s:h("fzf3",                {"fg": s:variable, "bg": {"gui": "#e5e5e6", "cterm": "252"}})
+call s:h("fzf1",                {"fg": s:variable, "bg": {"gui": "#d8d6d7", "cterm": "252"}})
+call s:h("fzf2",                {"fg": s:variable, "bg": {"gui": "#d8d6d7", "cterm": "252"}})
+call s:h("fzf3",                {"fg": s:variable, "bg": {"gui": "#d8d6d7", "cterm": "252"}})
 
 " Telescope (Neovim)
-call s:h("TelescopeBorder",         {"fg": {"gui": "#e5e5e6", "cterm": "252"}})
+call s:h("TelescopeBorder",         {"fg": {"gui": "#d8d6d7", "cterm": "252"}})
 call s:h("TelescopePromptBorder",   {"fg": s:function})
-call s:h("TelescopeResultsBorder",  {"fg": {"gui": "#e5e5e6", "cterm": "252"}})
-call s:h("TelescopePreviewBorder",  {"fg": {"gui": "#e5e5e6", "cterm": "252"}})
+call s:h("TelescopeResultsBorder",  {"fg": {"gui": "#d8d6d7", "cterm": "252"}})
+call s:h("TelescopePreviewBorder",  {"fg": {"gui": "#d8d6d7", "cterm": "252"}})
 call s:h("TelescopeMatching",       {"fg": s:function, "gui": "bold", "cterm": "bold"})
 call s:h("TelescopePromptPrefix",   {"fg": s:variable})
 
@@ -371,14 +371,14 @@ call s:h("TSVariableBuiltin",   {"fg": s:variable})
 " TERMINAL COLORS (for :terminal in Neovim)
 " ===================================================================
 if has('nvim')
-  let g:terminal_color_0  = "#000000"
+  let g:terminal_color_0  = s:mono_1
   let g:terminal_color_1  = s:hue_5
   let g:terminal_color_2  = s:hue_4
   let g:terminal_color_3  = s:hue_6
   let g:terminal_color_4  = s:hue_2
   let g:terminal_color_5  = s:hue_3
   let g:terminal_color_6  = s:hue_1
-  let g:terminal_color_7  = "#ffffff"
+  let g:terminal_color_7  = s:syntax_bg
   let g:terminal_color_8  = s:mono_3
   let g:terminal_color_9  = s:hue_5
   let g:terminal_color_10 = s:hue_4
@@ -386,13 +386,12 @@ if has('nvim')
   let g:terminal_color_12 = s:hue_2
   let g:terminal_color_13 = s:hue_3
   let g:terminal_color_14 = s:hue_1
-  let g:terminal_color_15 = "#ffffff"
+  let g:terminal_color_15 = s:syntax_bg
 endif
 
 " ===================================================================
 " LEGACY SUPPORT
 " ===================================================================
-" Para compatibilidade com Vim 7.x e versões que não suportam guisp
 if !has("gui_running") && &t_Co != 88 && &t_Co != 256
   finish
 endif

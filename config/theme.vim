@@ -28,9 +28,16 @@ if !has('gui_running')
 endif
 
 " Theme settings
+
+if has("termguicolors")
+    " Configuração específica para Vim rodando no iTerm2/Terminal
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+
 set background=light
-let g:one_allow_italics = 1
-colorscheme atomonelight
+colorscheme atomonelight_matte
 
 " Custom highlights
 highlight Comment cterm=italic

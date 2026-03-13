@@ -59,8 +59,13 @@ set sidescrolloff=8
 set signcolumn=yes
 set linebreak
 set wrap
+
+if (has("termguicolors"))
+  set termguicolors
+endif
+
 set nolist
-set termguicolors
+" set termguicolors
 set ambiwidth=single
 set display=lastline
 set fillchars=vert:\│,fold:-

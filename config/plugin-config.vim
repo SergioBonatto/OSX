@@ -118,6 +118,11 @@ augroup PluginAutoCommands
   autocmd BufNewFile,BufRead *.phi setlocal filetype=phi
 augroup END
 
+" Vim-c-cpp-modern
+let g:cpp_member_highlight = 1
+let g:cpp_operator_highlight = 1
+let g:cpp_attributes_highlight = 1
+
 
 " Vimsence
 let g:vimsence_client_id = '715372754408439852'

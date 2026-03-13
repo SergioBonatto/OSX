@@ -10,12 +10,6 @@ Plug 'preservim/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ryanoasis/vim-devicons'
 
-" === Themes (choose one main theme) ===
-" Plug 'rakr/vim-one'
-" Optional alternatives (comment out what you don't use)
-" Plug 'morhetz/gruvbox'
-" Plug 'rose-pine/vim'
-
 " === Code Quality ===
 Plug 'dense-analysis/ale'
 " Note: Removed syntastic - conflicts with ALE
@@ -36,6 +30,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mattn/emmet-vim'
+Plug 'bfrg/vim-c-cpp-modern'
+Plug 'jaxbot/semantic-highlight.vim'
+
+
 
 " === Your Custom Plugins ===
 Plug 'SergioBonatto/VimFileType'

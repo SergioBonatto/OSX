@@ -1,6 +1,6 @@
 # OSX - Development Configuration
 
-This repository contains custom configurations for development on macOS, including Vim, Zsh, Ghostty terminal settings, and custom themes.
+This repository contains custom configurations for development on macOS, including Vim, Zsh, and custom themes.
 
 ## Repository Structure
 
@@ -8,7 +8,6 @@ This repository contains custom configurations for development on macOS, includi
 OSX/
 ├── .vimrc                 # Main Vim configuration
 ├── .zshrc                 # Zsh shell configuration
-├── ghostty.config         # Ghostty terminal configuration
 ├── install.sh             # Automated setup script
 ├── config/                # Modular Vim configurations
 │   ├── plugins.vim        # Plugin management
@@ -34,33 +33,34 @@ OSX/
 - **OCaml support**: Automatic configuration for development
 
 ### Zsh Configuration
-- **Oh My Zsh**: Complete framework with useful plugins
-- **Theme**: cdimascio-lambda
+- **Antidote**: Lightning-fast Zsh plugin manager
+- **eza**: A modern, feature-rich replacement for `ls`
+- **Theme**: pawsh (lightweight, minimal prompt with no framework dependency)
+- **Theme Features**:
+  - Contextual cat prompt (`ᓚᘏᗢ`) based on exit status
+  - Fast Git status display (staged, modified, untracked, deleted, ahead/behind)
+  - Vi mode awareness and virtualenv visibility
+  - Prompt refresh on keymap change
 - **Included plugins**:
-  - git, zsh-syntax-highlighting, zsh-autosuggestions
-  - catimg, extract, jsontools
-- **Custom aliases**: For Git, Vim, and common commands
+  - zsh-syntax-highlighting, zsh-autosuggestions
+  - gitignore (via Oh My Zsh plugins)
+- **Custom aliases**: Optimized for Git, Vim, and system navigation using `eza`
 - **Doom Emacs integration**: Configuration for joint usage
-
-### Ghostty Terminal
-- **Theme**: OneHalfLight with custom colors
-- **Optimized configuration**: For development and productivity
-- **Zsh integration**: Shell integration enabled
-- **Modern interface**: macOS tab style
 
 ## Installation
 
 ### Prerequisites
 - macOS
 - [Homebrew](https://brew.sh)
-- [Ghostty Terminal](https://ghostty.org) (optional)
+- [Antidote](https://getantidote.github.io/) (`brew install antidote`)
+- [eza](https://eza.rocks/) (`brew install eza`)
 
 ### Automated Installation (Recommended)
 
 This repository provides an automated setup script to configure your development environment quickly and safely. The script will:
 - Check and install required dependencies
 - Backup your existing configurations (unless skipped)
-- Install and configure Vim, Zsh (with Oh My Zsh), Ghostty, and all plugins/themes
+- Install and configure Vim, Zsh (with Antidote), and all plugins/themes
 - Create all necessary symbolic links
 - Run a health check and provide a summary
 
@@ -115,6 +115,7 @@ If you prefer to set up manually, follow these steps:
     ```bash
     mv ~/.vimrc ~/.vimrc.backup 2>/dev/null || true
     mv ~/.zshrc ~/.zshrc.backup 2>/dev/null || true
+    mv ~/.zsh_plugins.txt ~/.zsh_plugins.txt.backup 2>/dev/null || true
     ```
 2. **Create symbolic links:**
     ```bash
@@ -125,16 +126,20 @@ If you prefer to set up manually, follow these steps:
 
     # Zsh
     ln -sf ~/osx-dotfiles/.zshrc ~/.zshrc
-
-    # Ghostty (if installed)
-    mkdir -p ~/.config/ghostty
-    ln -sf ~/osx-dotfiles/ghostty.config ~/.config/ghostty/config
+    ln -sf ~/osx-dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
     ```
-3. **Install Vim plugins:**
+3. **Install Pawsh Theme:**
+    ```bash
+    git clone https://github.com/SergioBonatto/pawsh-zsh-theme.git /tmp/pawsh-theme
+    mkdir -p ~/.zsh/themes
+    cp /tmp/pawsh-theme/pawsh.zsh-theme ~/.zsh/themes/
+    rm -rf /tmp/pawsh-theme
+    ```
+4. **Install Vim plugins:**
     ```bash
     vim +PlugInstall +qall
     ```
-4. **Reload configurations:**
+5. **Reload configurations:**
     ```bash
     source ~/.zshrc
     ```

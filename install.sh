@@ -28,8 +28,8 @@ readonly BOLD='\033[1m'
 readonly NC='\033[0m' # No Color
 
 # Required dependencies (adjusted for macOS)
-readonly REQUIRED_DEPS=(git curl vim)
-readonly OPTIONAL_DEPS=(zsh ghostty)
+readonly REQUIRED_DEPS=(git curl vim antidote eza)
+readonly OPTIONAL_DEPS=(zsh)
 
 # macOS-specific adjustments
 if [[ "$OS_TYPE" == "macos" ]]; then
@@ -218,25 +218,20 @@ install_vim_plug() {
     fi
 }
 
-install_oh_my_zsh() {
-    print_header "Installing Oh My Zsh"
+install_antidote_check() {
+    print_header "Checking Antidote"
 
     if ! validate_shell; then
-        print_warning "Skipping Oh My Zsh installation (zsh not available)"
+        print_warning "Skipping Antidote check (zsh not available)"
         return 0
     fi
 
-    if [[ -d "$HOME/.oh-my-zsh" ]]; then
-        print_info "Oh My Zsh already installed"
+    if check_command antidote; then
+        print_success "Antidote is installed"
         return 0
-    fi
-
-    print_info "Installing Oh My Zsh..."
-    # Use RUNZSH=no to prevent automatic shell switch during script execution
-    if RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; then
-        print_success "Oh My Zsh installed successfully"
     else
-        print_warning "Oh My Zsh installation may have failed, continuing..."
+        print_error "Antidote is not installed. Please install it using: brew install antidote"
+        return 1
     fi
 }
 
@@ -246,7 +241,7 @@ backup_configurations() {
     local configs=(
         "$HOME/.vimrc"
         "$HOME/.zshrc"
-        "$HOME/.config/ghostty/config"
+        "$HOME/.zsh_plugins.txt"
     )
 
     for config in "${configs[@]}"; do
@@ -292,20 +287,11 @@ configure_zsh() {
     else
         print_warning "No .zshrc found in script directory"
     fi
-}
 
-configure_ghostty() {
-    print_header "Configuring Ghostty"
-
-    if ! check_command ghostty; then
-        print_info "Ghostty not detected, skipping configuration"
-        return 0
-    fi
-
-    if [[ -f "$SCRIPT_DIR/ghostty.config" ]]; then
-        create_symlink "$SCRIPT_DIR/ghostty.config" "$HOME/.config/ghostty/config"
+    if [[ -f "$SCRIPT_DIR/zsh_plugins.txt" ]]; then
+        create_symlink "$SCRIPT_DIR/zsh_plugins.txt" "$HOME/.zsh_plugins.txt"
     else
-        print_warning "No ghostty.config found in script directory"
+        print_warning "No zsh_plugins.txt found in script directory"
     fi
 }
 
@@ -329,12 +315,7 @@ install_vim_plugins() {
 install_pawsh_theme() {
     print_header "Installing Pawsh Theme"
 
-    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-        print_warning "Oh My Zsh not found, skipping pawsh theme installation"
-        return 0
-    fi
-
-    local theme_dir="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes"
+    local theme_dir="$HOME/.zsh/themes"
     local temp_dir="/tmp/pawsh-zsh-theme-$$"
 
     print_info "Installing/updating pawsh theme..."
@@ -346,7 +327,7 @@ install_pawsh_theme() {
         mkdir -p "$theme_dir"
         cp "$temp_dir/pawsh.zsh-theme" "$theme_dir/"
         rm -rf "$temp_dir"
-        print_success "Pawsh theme installed/updated successfully"
+        print_success "Pawsh theme installed/updated successfully at $theme_dir"
     else
         print_error "Failed to clone pawsh theme repository"
         rm -rf "$temp_dir"
@@ -367,6 +348,7 @@ run_health_check() {
     local configs=(
         "$HOME/.vimrc"
         "$HOME/.zshrc"
+        "$HOME/.zsh_plugins.txt"
     )
 
     for config in "${configs[@]}"; do
@@ -392,11 +374,20 @@ run_health_check() {
         ((issues++))
     fi
 
-    # Check Oh My Zsh
-    if validate_shell && [[ -d "$HOME/.oh-my-zsh" ]]; then
-        print_success "Oh My Zsh is installed"
+    # Check Antidote
+    if validate_shell && check_command antidote; then
+        print_success "Antidote is installed"
     elif validate_shell; then
-        print_warning "Oh My Zsh is not installed"
+        print_error "Antidote is not installed"
+        ((issues++))
+    fi
+
+    # Check eza
+    if check_command eza; then
+        print_success "eza is installed"
+    else
+        print_error "eza is not installed"
+        ((issues++))
     fi
 
     if [[ $issues -eq 0 ]]; then
@@ -492,10 +483,9 @@ main() {
     # Run installation steps
     local steps=(
         install_vim_plug
-        install_oh_my_zsh
+        install_antidote_check
         configure_vim
         configure_zsh
-        configure_ghostty
         install_vim_plugins
         install_pawsh_theme
     )
